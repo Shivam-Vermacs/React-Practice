@@ -1,105 +1,55 @@
 import React, { useState } from "react";
+import { PostComponent } from "./Post";
 
 function App() {
+  const [posts, setPosts] = useState([]);
+  const postComponent = posts.map((post) => (
+    <PostComponent
+      name={post.name}
+      subtitle={post.subtitle}
+      time={post.time}
+      image={post.image}
+      description={post.description}
+    />
+  ));
+
+  function addPost() {
+    setPosts([
+      ...posts,
+      {
+        name: "John Doe",
+        subtitle: "Software Engineer",
+        time: "2 hours ago",
+        image:
+          "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80", // Japan landscape
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      },
+    ]);
+  }
+
   return (
-    <div style={{ backgroundColor: "lightgray", height: "100vh" }}>
-      <ToggleMessage />
-      <ToggleMessage />
-      <ToggleMessage />
+    <div
+      style={{
+        backgroundColor: "lightgray",
+        height: "100vh",
+        overflowY: "scroll",
+      }}
+    >
+      <button onClick={addPost}>Add Post</button>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 20,
+          color: "white",
+          padding: 20,
+        }}
+      >
+        {postComponent}
+      </div>
     </div>
   );
 }
 
-const ToggleMessage = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  return (
-    <div>
-      <button onClick={() => setIsVisible(!isVisible)}>Toggle Message</button>
-      {isVisible && <p>This message is conditionally rendered!</p>}
-    </div>
-  );
-};
-
-// const style = {
-//   width: 250,
-//   backgroundColor: "white",
-//   borderRadius: "8px",
-//   borderColor: "gray",
-//   borderWidth: 1,
-//   padding: 16,
-// };
-
-// function PostComponent({ title, image, subtitle, description, timeago }) {
-//   return (
-//     <div style={style}>
-//       <div style={{ display: "flex" }}>
-//         <img
-//           src={image}
-//           alt="Profile Picture"
-//           style={{
-//             width: 70,
-//             height: 70,
-//             borderRadius: 50,
-//           }}
-//         />
-
-//         <div
-//           style={{ fontSize: 12, color: "gray", marginLeft: 8, padding: 10 }}
-//         >
-//           <b style={{ color: "black" }}>{title}</b>
-//           <div>{subtitle}</div>
-//           {timeago !== undefined && <div>{timeago}</div>}
-//         </div>
-//       </div>
-
-//       <div
-//         style={{
-//           fontSize: 17,
-//           fontWeight: "normal",
-//           marginLeft: 8,
-//           padding: 10,
-//         }}
-//       >
-//         <p>{description}</p>
-//       </div>
-//     </div>
-//   );
-// }
-
 export default App;
-
-//  <div
-//    style={{
-//      display: "flex",
-//      justifyContent: "center",
-//      padding: "20px",
-//      borderRadius: "8px",
-//    }}
-//  >
-//    <div>
-//      <div style={{ marginBottom: 20 }}>
-//        {" "}
-//        <PostComponent
-//          title={"How to become a big dawg developer?"}
-//          image={"https://images.unsplash.com/photo-1518717758536-85ae29035b6d"}
-//          subtitle={"23,000 Followers"}
-//          description={
-//            "Want to Know how to become a big dawg developer? Join Dog Joe Devs and win bounties worth $10,000!"
-//          }
-//          timeago={"12m"}
-//        />
-//      </div>
-//      <div>
-//        {" "}
-//        <PostComponent
-//          title={"How to become a big dawg developer?"}
-//          image={"https://images.unsplash.com/photo-1518717758536-85ae29035b6d"}
-//          subtitle={"Promoted"}
-//          description={
-//            "Want to Know how to become a big dawg developer? Join Dog Joe Devs and win bounties worth $10,000!"
-//          }
-//        />
-//      </div>
-//    </div>
-//  </div>;
