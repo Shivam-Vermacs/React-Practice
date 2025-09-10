@@ -1,19 +1,54 @@
-import { TodoList } from "./Components/TodoList";
-import { NavbarMiniDemo } from "./Components/NavBarmini-demo";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  useNavigate,
+} from "react-router-dom";
 
 function App() {
   return (
-    <div style={{ backgroundColor: "#dadbdbff", minHeight: "100vh" }}>
-      <Card>
-        <div>
-          <h1>Card</h1>
-          <textarea style={{ width: "400px" }} type="text" />
-        </div>
-      </Card>{" "}
-      {/*passing the inside content as children*/}
-    </div>
+    <>
+      <BrowserRouter>
+        <Link to="/">Home</Link>|<Link to="/contact">Contact</Link>|
+        <Link to="/about">AboutUs</Link>
+        <Routes>
+          <Route path="/" element={<LandingHome />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<AboutUs />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
+
+const LandingHome = () => {
+  return (
+    <>
+      <h1>WELCOME TO HOME PAGE</h1>
+    </>
+  );
+};
+const Contact = () => {
+  const navigate = useNavigate();
+
+  function redirect() {
+    navigate("/");
+  }
+  return (
+    <>
+      <h1>CONTACT PAGE</h1>
+      <button onClick={redirect}>Back To Home</button>
+    </>
+  );
+};
+const AboutUs = () => {
+  return (
+    <>
+      <h1>ABOUT US PAGE</h1>
+    </>
+  );
+};
 
 function Card({ children }) {
   return (
