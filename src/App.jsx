@@ -4,28 +4,50 @@ import {
   Route,
   Link,
   useNavigate,
+  Outlet,
 } from "react-router-dom";
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <Link to="/">Home</Link>|<Link to="/contact">Contact</Link>|
-        <Link to="/about">AboutUs</Link>
         <Routes>
-          <Route path="/" element={<LandingHome />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/about" element={<AboutUs />} />
+          <Route path="/" element={<Layout />}>
+            <Route path="/" element={<LandingHome />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="*" element={<ErrorPage />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>
   );
 }
 
+const ErrorPage = () => {
+  return (
+    <>
+      <h1>404 - Page Not Found</h1>
+      <p>The page you are looking for does not exist.</p>
+    </>
+  );
+};
+const Layout = () => {
+  return (
+    <>
+      <Link to="/">Home</Link>|<Link to="/contact">Contact</Link>|
+      <Link to="/about">AboutUs</Link>
+      <Outlet />
+      <br />
+      <strong>Footer</strong>
+    </>
+  );
+};
+
 const LandingHome = () => {
   return (
     <>
-      <h1>WELCOME TO HOME PAGE</h1>
+      <h1>Why can't orphans play baseball? They never find ‘HOME'</h1>
     </>
   );
 };
@@ -45,7 +67,7 @@ const Contact = () => {
 const AboutUs = () => {
   return (
     <>
-      <h1>ABOUT US PAGE</h1>
+      <h1>About us: sleep is good, but eternal rest? Even better</h1>
     </>
   );
 };
