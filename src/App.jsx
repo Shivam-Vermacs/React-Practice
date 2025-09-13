@@ -1,17 +1,17 @@
 import { useState } from "react";
 
 function App() {
+  const [BulbOn, setBulbOn] = useState(false);
   return (
     <>
       <div>
-        <LightBulb />
+        <LightBulb BulbOn={BulbOn} setBulbOn={setBulbOn} />
       </div>
     </>
   );
 }
 
-function LightBulb() {
-  const [BulbOn, setBulbOn] = useState(false);
+function LightBulb({ BulbOn, setBulbOn }) {
   return (
     <>
       <BulbState BulbOn={BulbOn} />
