@@ -1,24 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const useCounter = () => {
-  const [count, setCount] = useState(0);
-  const IncreaseCount = () => {
-    setCount((count) => count + 1);
+const useJsonFetch = () => {
+  const [jsondata, setJsondata] = useState({});
+
+  const getJsondata = async () => {
+    const resp = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+    const data = await resp.json();
+    setJsondata(data);
   };
+  useEffect(() => {
+    getJsondata();
+  }, []);
   return {
-    count: count,
-    IncreaseCount: IncreaseCount,
+    jsondata,
   };
 };
 // App Component
 const App = () => {
-  const { count, IncreaseCount } = useCounter();
+  const { jsondata } = useJsonFetch();
   return (
     <>
       <div>
-        <h1>Counter App</h1>
-        <p>Current Count: {count}</p>
-        <button onClick={IncreaseCount}>Increase </button>
+        {jsondata.title ? <h1>{jsondata.title}</h1> : <h1>Loading...</h1>}
       </div>
     </>
   );
