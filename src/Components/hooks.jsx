@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-
+import { useEffect, useState, useRef } from "react";
+let ref;
 export const useJsonFetch = () => {
   const [jsondata, setJsondata] = useState({});
 
@@ -33,4 +33,22 @@ export const useFetch = (url) => {
     data,
     loading,
   };
+};
+
+export const usePrev = (value) => {
+  const ref = useRef();
+
+  useEffect(() => {
+    ref.current = value;
+  }, [value]);
+  return ref.current;
+};
+
+export const useDebounce = (fetch) => {
+  ref = useRef();
+  const func = () => {
+    clearTimeout(ref.current);
+    ref.current = setTimeout(fetch, 500);
+  };
+  return func;
 };
