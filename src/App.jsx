@@ -1,15 +1,32 @@
-import React from "react";
-import { useDebounce } from "./Components/hooks.jsx";
+import React, { useEffect, useState } from "react";
+// import { useDebounce } from "./Components/hooks.jsx";
 // App Component
-const App = () => {
-  const debounced = useDebounce(fetchrequest);
-  function fetchrequest() {
-    fetch("https://jsonplaceholder.typicode.com/todos/1");
-  }
 
+const useDebounce = (value, delay) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+  return debouncedValue;
+};
+const App = () => {
+  const [input, setInput] = useState("");
+  const debounced = useDebounce(input, 500);
+  useEffect(() => {
+    console.log("expensive operation");
+  }, [debounced]);
+  const handleChange = (e) => {
+    setInput(e.target.value);
+  };
   return (
     <>
-      <input type="text" onChange={debounced} />
+      <input type="text" onChange={handleChange} />
     </>
   );
 };
