@@ -1,34 +1,43 @@
-import React, { useEffect, useState } from "react";
-// import { useDebounce } from "./Components/hooks.jsx";
-// App Component
+import React, { useState } from "react";
 
-const useDebounce = (value, delay) => {
-  const [debouncedValue, setDebouncedValue] = useState(value);
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [value, delay]);
-  return debouncedValue;
-};
-const App = () => {
-  const [input, setInput] = useState("");
-  const debounced = useDebounce(input, 500);
-  useEffect(() => {
-    console.log("expensive operation");
-  }, [debounced]);
-  const handleChange = (e) => {
-    setInput(e.target.value);
-  };
+export const App = () => {
   return (
     <>
-      <input type="text" onChange={handleChange} />
+      <Counter />
     </>
   );
 };
 
-export default App;
+const Counter = () => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <>
+      {count}
+      <br />
+      <Increase setCount={setCount} />
+      <Decrease setCount={setCount} />
+    </>
+  );
+};
+
+const Increase = ({ setCount }) => {
+  function increaseCount() {
+    setCount((c) => c + 1);
+  }
+  return (
+    <>
+      <button onClick={increaseCount}>Increase</button>
+    </>
+  );
+};
+const Decrease = ({ setCount }) => {
+  function decreaseCount() {
+    setCount((c) => c - 1);
+  }
+  return (
+    <>
+      <button onClick={decreaseCount}>Decrease</button>
+    </>
+  );
+};
