@@ -12,10 +12,9 @@ export const App = () => {
 };
 
 const Counter = () => {
-  const count = useRecoilValue(counterAtom);
   return (
     <>
-      {count}
+      <CurrentCount />
       <br />
       <Increase />
       <Decrease />
@@ -23,6 +22,10 @@ const Counter = () => {
   );
 };
 
+const CurrentCount = () => {
+  const count = useRecoilValue(counterAtom);
+  return <>{count}</>;
+};
 const Increase = () => {
   const setCount = useSetRecoilState(counterAtom);
   function increaseCount() {
