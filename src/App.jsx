@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { ButtonComponent } from "./Components/ButtonComponent";
+import { InputComponent } from "./Components/InputComponent";
 
 export const App = () => {
   return (
@@ -30,19 +31,29 @@ const Response = () => {
 };
 
 const VerifyAgeComponent = () => {
+  const [age, setAge] = useState("");
+  function handleChange(e) {
+    const value = e.target.value;
+    if (/^\d*$/.test(value)) {
+      setAge(value);
+    }
+  }
+  const isAgeValid = age >= 18;
   return (
     <>
-      <div className="w-screen h-screen bg-slate-900">
+      <div className="w-screen h-screen bg-zinc-900">
         <div className="flex flex-col justify-center items-center gap-4">
-          <div className="text-4xl p-24 text-red-400 ">Tailwind Hub</div>
-          <div className="text-[30px] text-gray-300">Verify Age</div>
+          <div className="text-4xl p-24 text-violet-400 ">Tailwind Hub</div>
+          <div className="text-[30px] text-zinc-400">Verify Age</div>
           <p className="text-gray-500">Please Confirm Your Age</p>
-          <input
-            type="text"
-            className="px-8 py-2 rounded-md bg-transparent border border-gray-600 text-gray-100 "
-            placeholder="Enter your Age"
+
+          <InputComponent
+            type={"text"}
+            placeholder={"Enter Your Age"}
+            value={age}
+            onChange={handleChange}
           />
-          <ButtonComponent disabled={true}>Continue</ButtonComponent>
+          <ButtonComponent disabled={!isAgeValid}>Continue</ButtonComponent>
         </div>
       </div>
     </>
