@@ -3,8 +3,8 @@ export const ButtonComponent = ({ disabled, children, onClick }) => {
     <>
       <div
         onClick={!disabled ? onClick : undefined}
-        className={`px-20 py-4 rounded-md font-semibold  text-white cursor-pointer ${
-          disabled ? "bg-zinc-700" : "bg-emerald-600 hover:bg-emerald-500"
+        className={`px-[100px] py-4 rounded-2xl font-semibold  text-white cursor-pointer ${
+          disabled ? "bg-zinc-700" : "bg-violet-600 hover:bg-violet-900"
         }`}
       >
         {children}
