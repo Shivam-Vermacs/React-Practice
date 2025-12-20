@@ -5,7 +5,7 @@ export const Square = ({ value, onSquareClick }) => {
     <>
       <button
         onClick={onSquareClick}
-        className="px-2 py-2 bg-gray-200 border border-gray-950"
+        className="px-2 py-2 w-[50px] h-[50px] bg-gray-200 border border-gray-950"
       >
         {value}
       </button>

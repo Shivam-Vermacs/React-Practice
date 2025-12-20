@@ -5,7 +5,7 @@ import { TextCounter } from "./Components/Text-Counter/TextCounterComponent";
 export const App = () => {
   return (
     <>
-      <OtpComponent number={6} />
+      <TicTacToe />
     </>
   );
 };
